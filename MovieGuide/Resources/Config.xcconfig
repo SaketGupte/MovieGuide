@@ -1,0 +1,15 @@
+//
+//  Config.xcconfig
+//  MovieGuide
+//
+//  Created by Saket Gupte on 12/30/16.
+//  Copyright © 2016 Saket Gupte. All rights reserved.
+//
+
+#include Keys.xconfig
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited)
+
+API_KEY_V3=@\"$(API_KEY_V3)\"
+
+API_KEY_V4=@\"$(API_KEY_V4)\"

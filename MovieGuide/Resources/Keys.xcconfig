@@ -1,0 +1,11 @@
+//
+//  Keys.xcconfig
+//  MovieGuide
+//
+//  Created by Saket Gupte on 12/30/16.
+//  Copyright © 2016 Saket Gupte. All rights reserved.
+//
+
+API_KEY_V3 = "351b0c062737790ac9075594a0a74191"
+API_KEY_V4 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNTFiMGMwNjI3Mzc3OTBhYzkwNzU1OTRhMGE3NDE5MSIsInN1YiI6IjU4NTY4M2Q1YzNhMzY4MzE1MDA0N2VlZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CThe5sVCudqnXfUA6MPq6GxRmTH58f08qKE0Ggctiig"
+
