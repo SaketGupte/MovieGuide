@@ -1,5 +1,5 @@
 //
-//  MoviePresenter.swift
+//  DetailView.swift
 //  MovieGuide
 //
 //  Created by Saket Gupte on 1/2/17.

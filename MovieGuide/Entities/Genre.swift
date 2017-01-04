@@ -6,10 +6,16 @@
 //  Copyright © 2016 Saket Gupte. All rights reserved.
 //
 
-import Foundation
+import Mapper
 
-struct Genre {
-  public let id: String
-  public let name: String
+struct Genre: Mappable {
+
+  init(map: Mapper) throws {
+    try id = map.from("id")
+    try name = map.from("name")
+  }
+
+  let id: String
+  let name: String
 
 }
