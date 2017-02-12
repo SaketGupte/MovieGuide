@@ -11,7 +11,7 @@ import RxSwift
 
 protocol ListingInteractor {
 
-  func getListOfMoviesNowPlaying() -> Observable<[Movie]>
+  func getListOfMoviesNowPlaying() -> Observable<ListingResponse>
 
   func getListOfPopularMovies() -> Observable<[Movie]>
 

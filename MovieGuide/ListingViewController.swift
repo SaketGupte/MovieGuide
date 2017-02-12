@@ -9,29 +9,43 @@
 import UIKit
 
 class ListingViewController: UIViewController,
-                             UITableViewDataSource,
-                             UITabBarDelegate,
+                             UICollectionViewDataSource,
+                             UICollectionViewDelegate,
                              ListingView {
 
-  @IBOutlet weak var tableView = UITableView()
-  @IBOutlet weak var sortByButton = UIButton()
+  @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet weak var sortByButton: UIButton!
 
-  var movies:[MovieListModel] = []
+  var movies:[MovieListViewModel] = []
+  var listingPresenter: ListingPresenter?
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-  func numberOfSections(in tableView: UITableView) -> Int {
+    self.collectionView.register(ListingCollectionViewCell.self)
+    self.getMovies()
+  }
+
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
-
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return movies.count
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return self.movies.count
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let listingCell:ListingCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+    listingCell.configure(movie: movies[indexPath.row])
+    return listingCell
+  }
+  
+  func showListOfMovie(movieList: [MovieListViewModel]) {
+    self.movies = movieList
+    self.collectionView.reloadData()
   }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return tableView.dequeueReusableCell(withIdentifier: "")!
+  func getMovies() {
+    self.listingPresenter?.getListOfMoviesNowPlaying()
   }
-
-  func showListOfMovie(movieList: [MovieListModel]) {
-  }
-
 }

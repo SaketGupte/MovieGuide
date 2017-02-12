@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class ListingPresenterImpl: ListingPresenter {
+struct ListingPresenterImpl: ListingPresenter {
 
   var listingInteractor: ListingInteractor?
   var listingView: ListingView?
@@ -17,45 +17,59 @@ class ListingPresenterImpl: ListingPresenter {
 
   func getListOfMoviesNowPlaying() {
     self.listingInteractor?
-      .getListOfPopularMovies()
-      .subscribe(onNext: { [weak self] (movies: [Movie]) in
-        self?.showMoviesInView(movies: movies)
+      .getListOfMoviesNowPlaying()
+      .subscribe(onNext: {(movieResponse: ListingResponse) in
+        self.showMoviesInView(movies: movieResponse.movie)
       })
       .addDisposableTo(disposeBag)
   }
 
   func getListOfPopularMovies() {
     self.listingInteractor?
-      .getListOfTopRatedMovies()
-      .subscribe(onNext: { [weak self] (movies: [Movie]) in
-      self?.showMoviesInView(movies: movies)
+      .getListOfPopularMovies()
+      .subscribe(onNext: { (movies: [Movie]) in
+        self.showMoviesInView(movies: movies)
       })
       .addDisposableTo(disposeBag)
   }
 
   func getListOfUpcomingMovies() {
-    self.listingInteractor?.getListOfMoviesNowPlaying()
-      .subscribe(onNext: { [weak self] (movies: [Movie]) in
-        self?.showMoviesInView(movies: movies)
+    self.listingInteractor?
+      .getListOfUpcomingMovies()
+      .subscribe(onNext: { (movies: [Movie]) in
+        self.showMoviesInView(movies: movies)
       })
       .addDisposableTo(disposeBag)
   }
 
   func getListOfTopRatedMovies() {
-    self.listingInteractor?.getListOfUpcomingMovies()
-      .subscribe(onNext: { [weak self] (movies: [Movie]) in
-        self?.showMoviesInView(movies: movies)
+    self.listingInteractor?
+      .getListOfTopRatedMovies()
+      .subscribe(onNext: { (movies: [Movie]) in
+        self.showMoviesInView(movies: movies)
       })
       .addDisposableTo(disposeBag)
   }
 
   internal func showMoviesInView(movies:[Movie]) {
-    let moviesList = self.convertMoviesToMovieListModel(movies: movies)
+    let moviesList = self.convertMoviesToMovieListViewModel(movies: movies)
     self.listingView?.showListOfMovie(movieList: moviesList)
   }
 
-  internal func convertMoviesToMovieListModel(movies:[Movie]) -> [MovieListModel] {
-    return []
+  internal func convertMoviesToMovieListViewModel(movies:[Movie]) -> [MovieListViewModel] {
+    var movieModelList = [MovieListViewModel]()
+    for movie in movies {
+      let movieListViewModel:MovieListViewModel = MovieListViewModel(title: movie.title,
+                                                                     posterURL:self.getPosterURl(posterPath: movie.posterPath))
+      movieModelList.append(movieListViewModel)
+    }
+    return movieModelList
+  }
+  
+  internal func getPosterURl(posterPath:String?) -> URL? {
+    guard let posterPath = posterPath else { return nil }
+    let completePosterPath =  constants.apiConstants.imageBaseUrl + constants.apiConstants.imageSize + posterPath
+    return URL(string:completePosterPath)
   }
 
   internal func showErrorMessage() {

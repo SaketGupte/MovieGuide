@@ -10,12 +10,12 @@ import Mapper
 
 struct Genre: Mappable {
 
+  let id: String
+  let name: String
+
   init(map: Mapper) throws {
     try id = map.from("id")
     try name = map.from("name")
   }
-
-  let id: String
-  let name: String
 
 }

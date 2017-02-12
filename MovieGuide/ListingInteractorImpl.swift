@@ -21,32 +21,33 @@ enum MovieListOptions: String {
   case upcoming = "upcoming"
 }
 
-class ListingInteractorImpl: ListingInteractor {
+struct ListingInteractorImpl: ListingInteractor {
 
   var listingPresenter: ListingPresenter?
-  let provider: RxMoyaProvider<MovieGuideEndpoint> = RxMoyaProvider<MovieGuideEndpoint>()
+  
+  let provider: RxMoyaProvider<MovieGuideEndpoint> = RxMoyaProvider<MovieGuideEndpoint>(plugins: [NetworkLoggerPlugin(verbose:true)])
 
-  func getListOfMoviesNowPlaying() -> Observable<[Movie]> {
+  func getListOfMoviesNowPlaying() -> Observable<ListingResponse> {
     return self.provider
-      .request(MovieGuideEndpoint.movieByOption(option: MovieListOptions.nowPlaying.rawValue))
-      .mapArrayOptional(type: Movie.self)
+      .request(MovieGuideEndpoint.movieByOption(option: MovieListOptions.popular.rawValue))
+      .mapObject(type: ListingResponse.self)
   }
 
   func getListOfPopularMovies() -> Observable<[Movie]> {
     return self.provider
       .request(MovieGuideEndpoint.movieByOption(option: MovieListOptions.popular.rawValue))
-      .mapArrayOptional(type: Movie.self)
+      .mapArray(type: Movie.self)
   }
 
   func getListOfUpcomingMovies() -> Observable<[Movie]> {
     return self.provider
       .request(MovieGuideEndpoint.movieByOption(option: MovieListOptions.upcoming.rawValue))
-      .mapArrayOptional(type: Movie.self)
+      .mapArray(type: Movie.self)
   }
 
   func getListOfTopRatedMovies() -> Observable<[Movie]> {
     return self.provider
       .request(MovieGuideEndpoint.movieByOption(option: MovieListOptions.topRated.rawValue))
-      .mapArrayOptional(type: Movie.self)
+      .mapArray(type: Movie.self)
   }
 }
