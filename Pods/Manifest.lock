@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.2.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
   - ModelMapper (5.0.0)
   - Moya (8.0.0-beta.4):
     - Moya/Core (= 8.0.0-beta.4)
@@ -23,6 +25,7 @@ PODS:
     - RxCocoa
     - RxSwift
   - RxSwift (3.0.1)
+  - SwiftLint (0.16.0)
   - Typhoon (4.0.0):
     - Typhoon/DeallocNotifier (= 4.0.0)
     - Typhoon/IntrospectionUtils (= 4.0.0)
@@ -33,13 +36,16 @@ PODS:
     - Typhoon/IntrospectionUtils
 
 DEPENDENCIES:
+  - AlamofireImage (~> 3.1)
   - Moya-ModelMapper/RxSwift (~> 4.0.0-beta.3)
   - RxCocoa (~> 3.0.0)
   - RxOptional (~> 3.1.2)
+  - SwiftLint
   - Typhoon
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   ModelMapper: 89ced1f51ec6360e93f6889d08c818d4cad526a3
   Moya: bad6f72ec40661f09a8cd85ab470226d2795a485
   Moya-ModelMapper: d7c1946ee93bf3b556bcdb9f203dc0fc5afd497b
@@ -47,8 +53,9 @@ SPEC CHECKSUMS:
   RxCocoa: 15a52fc590dcc700cb4a690a633b5c5184ce3a78
   RxOptional: b97b59183af80d1e729ac9e51d09a10be668d6a8
   RxSwift: af5680055c4ad04480189c52d28385b1029493a6
+  SwiftLint: 90665265ae50b58167c674a11c680bbabe9d6513
   Typhoon: 1fcbf6417e7040e645c910e7004336c51c916fb3
 
-PODFILE CHECKSUM: 7b0dcbce39d8cf3b375f3048cec8ea457a3083c4
+PODFILE CHECKSUM: 44778cf929632a085fcf9f625f4624069a3ce010
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

@@ -6,9 +6,15 @@
 //  Copyright © 2016 Saket Gupte. All rights reserved.
 //
 
-import Foundation
+import Mapper
 
-struct SpokenLanuage {
+struct SpokenLanuage: Mappable {
   let id: String
   let name: String
+
+  init(map: Mapper) throws {
+    try id = map.from("id")
+    try name = map.from("name")
+  }
+  
 }

@@ -6,19 +6,28 @@
 //  Copyright © 2016 Saket Gupte. All rights reserved.
 //
 
-import Foundation
+import Mapper
 
-struct Movie {
-  public let id: String
-  public let title: String
-  public let overview: String?
-  public let posterPath: String?
-  public let backdropPath: String?
-  public let isAdultMovie: Bool?
-  public let genres: [Genre]?
-  public let originalLanguage: String?
-  public let runTime: Int?
-  public let status: String?
-  public let releaseData: Date?
-  public let spokenLanguage: [SpokenLanuage]?
+struct Movie: Mappable {
+
+  let id: Int
+  let title: String
+  let overview: String?
+  let posterPath: String?
+  let isAdultMovie: Bool?
+  let originalLanguage: String?
+  let releaseDate: String?
+  let rating: Double?
+
+  init(map: Mapper) throws {
+    try id = map.from("id")
+    try title = map.from("title")
+    try overview = map.from("overview")
+    try posterPath = map.from("backdrop_path")
+    try isAdultMovie = map.from("adult")
+    try originalLanguage = map.from("original_language")
+    try releaseDate = map.from("release_date")
+    try rating = map.from("vote_average")
+  }
+
 }

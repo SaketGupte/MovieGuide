@@ -39,8 +39,7 @@ extension MovieGuideEndpoint: TargetType {
   }
 
   var parameters: [String: Any]? {
-    if false { "#warning" }
-    return ["api_key" : "hello"]
+    return ["api_key" : "351b0c062737790ac9075594a0a74191"]
   }
 
   var sampleData: Data {
