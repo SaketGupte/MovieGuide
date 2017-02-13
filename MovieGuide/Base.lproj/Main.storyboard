@@ -13,9 +13,10 @@
         <scene sceneID="wnJ-vP-sJc">
             <objects>
                 <navigationController id="5jS-as-cN8" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xIc-oN-X9o">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="xIc-oN-X9o">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.41499999999999998" green="0.035890837104072419" blue="0.11715285633484165" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GSR-I0-3W6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -35,9 +36,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1dG-Eo-LHv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hjZ-yn-lM6">
+                                <rect key="frame" x="1" y="0.0" width="373" height="667"/>
+                                <color key="backgroundColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="hjZ-yn-lM6">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -50,12 +51,12 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="1dG-Eo-LHv" firstAttribute="top" secondItem="502-Ir-ELC" secondAttribute="top" id="1F0-0O-o16"/>
-                            <constraint firstAttribute="trailing" secondItem="1dG-Eo-LHv" secondAttribute="trailing" id="KdZ-cb-8eJ"/>
+                            <constraint firstAttribute="trailing" secondItem="1dG-Eo-LHv" secondAttribute="trailing" constant="1" id="KdZ-cb-8eJ"/>
                             <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="1dG-Eo-LHv" secondAttribute="bottom" id="Kjp-ce-RMx"/>
-                            <constraint firstItem="1dG-Eo-LHv" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leading" id="ygg-nI-MfF"/>
+                            <constraint firstItem="1dG-Eo-LHv" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leading" constant="1" id="ygg-nI-MfF"/>
                         </constraints>
                     </view>
                     <connections>
