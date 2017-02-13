@@ -11,6 +11,7 @@ import UIKit
 class ListingViewController: UIViewController,
                              UICollectionViewDataSource,
                              UICollectionViewDelegate,
+                             UICollectionViewDelegateFlowLayout,
                              ListingView {
 
   @IBOutlet weak var collectionView: UICollectionView!
@@ -38,6 +39,13 @@ class ListingViewController: UIViewController,
     let listingCell:ListingCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
     listingCell.configure(movie: movies[indexPath.row])
     return listingCell
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let viewSize = self.collectionView.bounds.size
+    let spacing: CGFloat = 1
+    let edgeLength = (viewSize.width / 2) - spacing
+    return CGSize(width: edgeLength, height: edgeLength)
   }
   
   func showListOfMovie(movieList: [MovieListViewModel]) {
