@@ -55,6 +55,10 @@ extension MovieGuideEndpoint: TargetType {
     }
   }
 
+  var parameterEncoding: ParameterEncoding {
+    return URLEncoding() as ParameterEncoding
+  }
+  
   var task: Task {
     return .request
   }

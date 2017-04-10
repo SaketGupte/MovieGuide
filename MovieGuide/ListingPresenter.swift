@@ -10,11 +10,9 @@ import Foundation
 
 protocol ListingPresenter {
 
-  func getListOfMoviesNowPlaying()
-
-  func getListOfPopularMovies()
-
-  func getListOfUpcomingMovies()
-
-  func getListOfTopRatedMovies()
+  func getListOfMoviesByDefaultOption()
+  
+  func getListOfMovie(option: MovieListOptions)
+  
+  func getSortOptions() 
 }

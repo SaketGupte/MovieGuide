@@ -10,6 +10,7 @@ import Foundation
 
 protocol ListingView {
 
-  func showListOfMovie(movieList : [MovieListViewModel])
+  func showListOfMovie(movieList : [ListViewModel])
 
+  func showSortOptions(_ sortList:[(String, MovieListOptions)])
 }
