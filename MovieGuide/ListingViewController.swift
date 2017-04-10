@@ -9,30 +9,59 @@
 import UIKit
 
 class ListingViewController: UIViewController,
-                             UICollectionViewDataSource,
-                             UICollectionViewDelegate,
-                             UICollectionViewDelegateFlowLayout,
                              ListingView {
 
   @IBOutlet weak var collectionView: UICollectionView!
-  @IBOutlet weak var sortByButton: UIButton!
-
-  var movies:[MovieListViewModel] = []
+  @IBOutlet weak var sortByButton: UIBarButtonItem!
+  var sortPicker: CustomPicker!
+  
+  var movies:[ListViewModel] = []
+  var sortOptions:[(description: String, value: MovieListOptions)] = []
   var listingPresenter: ListingPresenter?
+  
+  override func awakeFromNib()
+  {
+    super.awakeFromNib()
+    ListingConfigurator.sharedInstance.configure(viewController: self)
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.collectionView.register(ListingCollectionViewCell.self)
-    self.getMovies()
+    collectionView.register(ListingCollectionViewCell.self)
+    getMoviesOnLoad()
+  }
+  
+  @IBAction func sortOptionsButtonTapped(_ sender: AnyObject) {
+    listingPresenter?.getSortOptions()
+  }
+  
+  func showListOfMovie(movieList: [ListViewModel]) {
+    movies = movieList
+    collectionView.reloadData()
+  }
+  
+  func showSortOptions(_ sortList: [(String, MovieListOptions)]) {
+    
+    sortOptions = sortList
+    sortPicker = CustomPicker(title: "Sort Option", items: sortOptions.map { $0.description })
+    sortPicker.delegate = self
+    sortPicker.presentPickerOnView(view: self.view)
   }
 
+  func getMoviesOnLoad() {
+    listingPresenter?.getListOfMoviesByDefaultOption()
+  }
+}
+
+
+extension ListingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return self.movies.count
+    return movies.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -42,18 +71,18 @@ class ListingViewController: UIViewController,
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let viewSize = self.collectionView.bounds.size
+    let viewSize = collectionView.bounds.size
     let spacing: CGFloat = 1
     let edgeLength = (viewSize.width / 2) - spacing
     return CGSize(width: edgeLength, height: edgeLength)
   }
-  
-  func showListOfMovie(movieList: [MovieListViewModel]) {
-    self.movies = movieList
-    self.collectionView.reloadData()
-  }
+}
 
-  func getMovies() {
-    self.listingPresenter?.getListOfMoviesNowPlaying()
+extension ListingViewController: CustomPickerDelegate {
+  func selectedValueInPicker(picker: CustomPicker, index: Int, value: String) {
+    listingPresenter?.getListOfMovie(option: sortOptions[index].value)
+  }
+  
+  func canceledSelection(picker: CustomPicker) {
   }
 }

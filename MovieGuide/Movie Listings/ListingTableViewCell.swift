@@ -15,7 +15,7 @@ class ListingTableViewCell: UITableViewCell {
   @IBOutlet weak var yearOfReleaseLabel: UILabel!
   @IBOutlet weak var moviePosterImageView: UIImageView!
 
-  func configure(movie: MovieListViewModel) {
+  func configure(movie: ListViewModel) {
     self.titleLabel.text = movie.title
   }
 

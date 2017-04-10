@@ -27,27 +27,33 @@ struct ListingInteractorImpl: ListingInteractor {
   
   let provider: RxMoyaProvider<MovieGuideEndpoint> = RxMoyaProvider<MovieGuideEndpoint>(plugins: [NetworkLoggerPlugin(verbose:true)])
 
+  func getListOfMovies(listOption: MovieListOptions) -> Observable<ListingResponse>  {
+    return provider
+      .request(MovieGuideEndpoint.movieByOption(option: listOption.rawValue))
+      .mapObject(type: ListingResponse.self)
+  }
+  
   func getListOfMoviesNowPlaying() -> Observable<ListingResponse> {
-    return self.provider
+    return provider
       .request(MovieGuideEndpoint.movieByOption(option: MovieListOptions.popular.rawValue))
       .mapObject(type: ListingResponse.self)
   }
 
-  func getListOfPopularMovies() -> Observable<[Movie]> {
-    return self.provider
+  func getListOfPopularMovies() -> Observable<ListingResponse> {
+    return provider
       .request(MovieGuideEndpoint.movieByOption(option: MovieListOptions.popular.rawValue))
-      .mapArray(type: Movie.self)
+      .mapObject(type: ListingResponse.self)
   }
 
-  func getListOfUpcomingMovies() -> Observable<[Movie]> {
-    return self.provider
+  func getListOfUpcomingMovies() -> Observable<ListingResponse> {
+    return provider
       .request(MovieGuideEndpoint.movieByOption(option: MovieListOptions.upcoming.rawValue))
-      .mapArray(type: Movie.self)
+      .mapObject(type: ListingResponse.self)
   }
 
-  func getListOfTopRatedMovies() -> Observable<[Movie]> {
-    return self.provider
+  func getListOfTopRatedMovies() -> Observable<ListingResponse> {
+    return provider
       .request(MovieGuideEndpoint.movieByOption(option: MovieListOptions.topRated.rawValue))
-      .mapArray(type: Movie.self)
+      .mapObject(type: ListingResponse.self)
   }
 }

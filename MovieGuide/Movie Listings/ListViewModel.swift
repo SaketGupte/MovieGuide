@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MovieListViewModel {
+struct ListViewModel {
   let title: String
   let posterURL : URL?
 

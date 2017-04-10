@@ -15,7 +15,7 @@ class ListingCollectionViewCell: UICollectionViewCell {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var posterImageView: UIImageView!
   
-  func configure(movie: MovieListViewModel) {
+  func configure(movie: ListViewModel) {
     self.titleLabel.text = movie.title
     if let posterURL = movie.posterURL {
       self.posterImageView.af_setImage(withURL: posterURL)
