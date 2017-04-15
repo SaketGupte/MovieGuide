@@ -15,9 +15,6 @@ struct ListingPresenterImpl: ListingPresenter {
   var listingView: ListingView?
   let disposeBag = DisposeBag()
 
-  func getListOfMovies(sortOption: String) {
-  }
-  
   func getListOfMoviesByDefaultOption() {
     getListOfMovie(option: .nowPlaying)
   }
@@ -35,7 +32,7 @@ struct ListingPresenterImpl: ListingPresenter {
       .addDisposableTo(disposeBag)
   }
   
-  func showMoviesInView(movies:[Movie]) {
+  fileprivate func showMoviesInView(movies:[Movie]) {
     let moviesList = convertMoviesToMovieListViewModel(movies: movies)
     listingView?.showListOfMovie(movieList: moviesList)
   }
