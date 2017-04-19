@@ -28,6 +28,7 @@ struct ListingInteractorImpl: ListingInteractor {
   let provider: RxMoyaProvider<MovieGuideEndpoint> = RxMoyaProvider<MovieGuideEndpoint>(plugins: [NetworkLoggerPlugin(verbose:true)])
 
   func getListOfMovies(listOption: MovieListOptions) -> Observable<ListingResponse>  {
+    
     return provider
       .request(MovieGuideEndpoint.movieByOption(option: listOption.rawValue))
       .mapObject(type: ListingResponse.self)

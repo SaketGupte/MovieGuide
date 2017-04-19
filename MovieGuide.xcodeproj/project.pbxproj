@@ -29,6 +29,7 @@
 		EB1C1A491E1AB3A2001AA9B7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C1A481E1AB3A2001AA9B7 /* DetailView.swift */; };
 		EB1C1A4D1E1AD7BC001AA9B7 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C1A4C1E1AD7BC001AA9B7 /* ListViewModel.swift */; };
 		EB4BA6E01E1D619E0019BB55 /* ListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4BA6DF1E1D619E0019BB55 /* ListingView.swift */; };
+		EB61AF261EA3EDBE000ED3F1 /* ListingPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB61AF251EA3EDBE000ED3F1 /* ListingPresenterTest.swift */; };
 		EB8F01681E323D26002C62D0 /* ListingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8F01671E323D26002C62D0 /* ListingResponse.swift */; };
 		EBB040F01E975FE8002CD2F8 /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB040EF1E975FE8002CD2F8 /* CustomPickerView.swift */; };
 		EBB9B5921E2D3BF700FE11D7 /* ListingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB9B5901E2D3BF700FE11D7 /* ListingTableViewCell.swift */; };
@@ -85,6 +86,7 @@
 		EB1C1A481E1AB3A2001AA9B7 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		EB1C1A4C1E1AD7BC001AA9B7 /* ListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewModel.swift; path = "Movie Listings/ListViewModel.swift"; sourceTree = "<group>"; };
 		EB4BA6DF1E1D619E0019BB55 /* ListingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingView.swift; sourceTree = "<group>"; };
+		EB61AF251EA3EDBE000ED3F1 /* ListingPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingPresenterTest.swift; sourceTree = "<group>"; };
 		EB8F01671E323D26002C62D0 /* ListingResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListingResponse.swift; path = API/ListingResponse.swift; sourceTree = "<group>"; };
 		EBB040EF1E975FE8002CD2F8 /* CustomPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPickerView.swift; path = Utility/CustomPickerView.swift; sourceTree = "<group>"; };
 		EBB9B5901E2D3BF700FE11D7 /* ListingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListingTableViewCell.swift; path = "Movie Listings/ListingTableViewCell.swift"; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				EBDA2D351E942BDB0033BF8F /* ListingViewControllerTests.swift */,
+				EB61AF251EA3EDBE000ED3F1 /* ListingPresenterTest.swift */,
 			);
 			name = MovieListingTests;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBDA2D361E942BDB0033BF8F /* ListingViewControllerTests.swift in Sources */,
+				EB61AF261EA3EDBE000ED3F1 /* ListingPresenterTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

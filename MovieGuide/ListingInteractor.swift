@@ -13,11 +13,4 @@ protocol ListingInteractor {
 
   func getListOfMovies(listOption: MovieListOptions) -> Observable<ListingResponse>
   
-  func getListOfMoviesNowPlaying() -> Observable<ListingResponse>
-
-  func getListOfPopularMovies() -> Observable<ListingResponse>
-
-  func getListOfUpcomingMovies() -> Observable<ListingResponse>
-
-  func getListOfTopRatedMovies() -> Observable<ListingResponse>
 }

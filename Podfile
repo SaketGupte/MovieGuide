@@ -19,6 +19,9 @@ end
   target 'MovieGuideTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'RxTest'
+    pod 'Quick'
+    pod 'Nimble'
   end
 
 pod 'AlamofireImage', '~> 3.1'
