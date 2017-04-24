@@ -28,6 +28,8 @@ struct ListingPresenterImpl: ListingPresenter {
       .getListOfMovies(listOption: option)
       .subscribe(onNext: { (movieResponse: ListingResponse) in
         self.showMoviesInView(movies: movieResponse.movie)
+      }, onError: { error in
+        self.showErrorMessage(error)
       })
       .addDisposableTo(disposeBag)
   }
@@ -37,6 +39,10 @@ struct ListingPresenterImpl: ListingPresenter {
     listingView?.showListOfMovie(movieList: moviesList)
   }
 
+  fileprivate func showErrorMessage(_ error: Error) {
+    listingView?.showErrorMessage(error.localizedDescription)
+  }
+  
   fileprivate func convertMoviesToMovieListViewModel(movies:[Movie]) -> [ListViewModel] {
     var movieList = [ListViewModel]()
     for movie in movies {

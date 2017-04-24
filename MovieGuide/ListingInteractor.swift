@@ -8,9 +8,12 @@
 
 import Foundation
 import RxSwift
+import Moya
 
 protocol ListingInteractor {
 
+  var provider: RxMoyaProvider<MovieGuideEndpoint>{get}
+  
   func getListOfMovies(listOption: MovieListOptions) -> Observable<ListingResponse>
   
 }
