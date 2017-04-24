@@ -13,4 +13,6 @@ protocol ListingView {
   func showListOfMovie(movieList : [ListViewModel])
 
   func showSortOptions(_ sortList:[(String, MovieListOptions)])
+  
+  func showErrorMessage(_ message: String)
 }

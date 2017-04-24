@@ -48,7 +48,10 @@ class ListingViewController: UIViewController,
     sortPicker.delegate = self
     sortPicker.presentPickerOnView(view: self.view)
   }
-
+  
+  func showErrorMessage(_ message: String) {
+  }
+  
   func getMoviesOnLoad() {
     listingPresenter?.getListOfMoviesByDefaultOption()
   }
