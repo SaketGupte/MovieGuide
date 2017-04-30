@@ -17,12 +17,12 @@ class ListingConfigurator {
       return
     }
     
-    let listingInteractor = ListingInteractorImpl()
+    let listingInteractor = ListingInteractorImpl(dependencies: ListingDependency())
     
     var listingPresenter = ListingPresenterImpl()
     listingPresenter.listingInteractor = listingInteractor
-    
     listingPresenter.listingView = viewController
+    
     viewController.listingPresenter = listingPresenter
   }
 }

@@ -70,6 +70,7 @@ extension ListingViewController: UICollectionViewDelegate, UICollectionViewDataS
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let listingCell:ListingCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
     listingCell.configure(movie: movies[indexPath.row])
+    listingCell.delegate = self
     return listingCell
   }
   
@@ -87,5 +88,10 @@ extension ListingViewController: CustomPickerDelegate {
   }
   
   func canceledSelection(picker: CustomPicker) {
+  }
+}
+
+extension ListingViewController: ListingCollectionViewCellDelegate {
+  func listingCollectionViewCell(_ cell: ListingCollectionViewCell, didTapDislikeButton button: UIButton) {
   }
 }
