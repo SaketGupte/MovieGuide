@@ -9,11 +9,21 @@
 import Foundation
 
 struct ListViewModel {
+  let id: Int
   let title: String
   let posterURL : URL?
 
-  init(title: String, posterURL: URL?) {
+  init(id: Int, title: String, posterURL: URL?) {
+    self.id = id
     self.title = title
     self.posterURL = posterURL
   }
+}
+
+extension ListViewModel: Equatable {
+  
+  static func ==(lhs: ListViewModel, rhs: ListViewModel) -> Bool {
+    return lhs.id == rhs.id
+  }
+
 }

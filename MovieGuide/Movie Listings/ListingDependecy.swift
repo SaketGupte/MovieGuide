@@ -13,9 +13,6 @@ protocol HasOnlineProvider {
   var onlineProvider: OnlineProvider<MovieGuideEndpoint> {get}
 }
 
-protocol HasImageProvider {
-}
-
 struct ListingDependency: HasOnlineProvider {
   let onlineProvider: OnlineProvider<MovieGuideEndpoint>
   

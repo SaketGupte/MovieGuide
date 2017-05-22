@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C0912705254886EF4DCCCDBE /* Pods_MovieGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A01567277F29884742E0B0 /* Pods_MovieGuideTests.framework */; };
 		E2D1750814DA7408CFDC81DD /* Pods_MovieGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EDC773DFF6891DBEB3C3C4 /* Pods_MovieGuide.framework */; };
+		EB0F50761EB775CE004CC46B /* DislikedMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F50751EB775CE004CC46B /* DislikedMovies.swift */; };
+		EB0F50781EB77967004CC46B /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F50771EB77967004CC46B /* LocalStorage.swift */; };
 		EB15A6561EA7FD560081000E /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB15A6551EA7FD560081000E /* APIKeys.swift */; };
 		EB15A65A1EA812BC0081000E /* Observable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB15A6591EA812BC0081000E /* Observable+Extensions.swift */; };
 		EB1C1A231E1AA98B001AA9B7 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C1A201E1AA98B001AA9B7 /* Genre.swift */; };
@@ -69,6 +71,8 @@
 		71EDC773DFF6891DBEB3C3C4 /* Pods_MovieGuide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieGuide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EE934C4E79F0878CA8B6C15 /* Pods-MovieGuideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieGuideTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieGuideTests/Pods-MovieGuideTests.release.xcconfig"; sourceTree = "<group>"; };
 		B860BE4D7738179F162C5688 /* Pods-MovieGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieGuide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieGuide/Pods-MovieGuide.debug.xcconfig"; sourceTree = "<group>"; };
+		EB0F50751EB775CE004CC46B /* DislikedMovies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DislikedMovies.swift; path = "Movie Listings/DislikedMovies.swift"; sourceTree = "<group>"; };
+		EB0F50771EB77967004CC46B /* LocalStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalStorage.swift; path = Utility/LocalStorage.swift; sourceTree = "<group>"; };
 		EB15A6551EA7FD560081000E /* APIKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		EB15A6591EA812BC0081000E /* Observable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+Extensions.swift"; path = "Utility/Observable+Extensions.swift"; sourceTree = "<group>"; };
 		EB1C1A201E1AA98B001AA9B7 /* Genre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Genre.swift; path = Entities/Genre.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 				EB1C1A201E1AA98B001AA9B7 /* Genre.swift */,
 				EB1C1A211E1AA98B001AA9B7 /* Movie.swift */,
 				EB1C1A221E1AA98B001AA9B7 /* SpokenLanguage.swift */,
+				EB0F50751EB775CE004CC46B /* DislikedMovies.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 				EBEFCCD31E2D534900A160C0 /* NibLoadableView.swift */,
 				EBB040EF1E975FE8002CD2F8 /* CustomPickerView.swift */,
 				EB15A6591EA812BC0081000E /* Observable+Extensions.swift */,
+				EB0F50771EB77967004CC46B /* LocalStorage.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -518,6 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB4BA6E01E1D619E0019BB55 /* ListingView.swift in Sources */,
+				EB0F50761EB775CE004CC46B /* DislikedMovies.swift in Sources */,
 				EB1C1A491E1AB3A2001AA9B7 /* DetailView.swift in Sources */,
 				EB1C1A3D1E1AB336001AA9B7 /* ListingInteractorImpl.swift in Sources */,
 				EB98EE451EA7DB0D00C34710 /* OnlineProvider.swift in Sources */,
@@ -528,6 +535,7 @@
 				EB1C1A411E1AB358001AA9B7 /* DetailPresenter.swift in Sources */,
 				EBEFCCD21E2D504B00A160C0 /* ResusableView.swift in Sources */,
 				EBC0A59F1E06B00B000D7788 /* AppDelegate.swift in Sources */,
+				EB0F50781EB77967004CC46B /* LocalStorage.swift in Sources */,
 				EB1C1A3F1E1AB341001AA9B7 /* ListingViewController.swift in Sources */,
 				EB15A6561EA7FD560081000E /* APIKeys.swift in Sources */,
 				EBB040F01E975FE8002CD2F8 /* CustomPickerView.swift in Sources */,

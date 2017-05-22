@@ -15,4 +15,6 @@ protocol ListingView {
   func showSortOptions(_ sortList:[(String, MovieListOptions)])
   
   func showErrorMessage(_ message: String)
+  
+  func showToastAndUpdateDisplayedMovies(message: String, movieList: [ListViewModel])
 }

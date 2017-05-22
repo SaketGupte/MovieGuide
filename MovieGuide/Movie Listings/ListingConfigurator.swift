@@ -19,7 +19,7 @@ class ListingConfigurator {
     
     let listingInteractor = ListingInteractorImpl(dependencies: ListingDependency())
     
-    var listingPresenter = ListingPresenterImpl()
+    let listingPresenter = ListingPresenterImpl()
     listingPresenter.listingInteractor = listingInteractor
     listingPresenter.listingView = viewController
     

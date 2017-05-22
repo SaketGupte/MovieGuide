@@ -9,9 +9,7 @@
 import Foundation
 
 import Moya
-import Mapper
 import Moya_ModelMapper
-import RxOptional
 import RxSwift
 
 enum MovieListOptions: String {
@@ -40,5 +38,10 @@ struct ListingInteractorImpl: ListingInteractor {
     return provider
       .request(MovieGuideEndpoint.movieByOption(option: listOption.rawValue))
       .mapObject(type: ListingResponse.self)
+  }
+  
+  func removeMovieFromListing(movieId: Int) {
+    let localStorage: LocalStorage = LocalStorageImpl()
+    localStorage.addMovieToDislikeList(movieId: movieId)
   }
 }

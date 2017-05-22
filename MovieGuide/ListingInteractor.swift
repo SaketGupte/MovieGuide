@@ -18,4 +18,5 @@ protocol ListingInteractor {
   
   func getListOfMovies(listOption: MovieListOptions) -> Observable<ListingResponse>
   
+  func removeMovieFromListing(movieId: Int)
 }

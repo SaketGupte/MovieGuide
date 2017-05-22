@@ -9,11 +9,12 @@
 import Foundation
 import RxSwift
 
-struct ListingPresenterImpl: ListingPresenter {
+class ListingPresenterImpl: ListingPresenter {
 
   var listingInteractor: ListingInteractor?
   var listingView: ListingView?
   let disposeBag = DisposeBag()
+  var moviesList: [ListViewModel] = []
 
   func getListOfMoviesByDefaultOption() {
     getListOfMovie(option: .nowPlaying)
@@ -34,8 +35,18 @@ struct ListingPresenterImpl: ListingPresenter {
       .addDisposableTo(disposeBag)
   }
   
+  func dislikeTappedForMovie(_ movie: ListViewModel) {
+    listingInteractor?.removeMovieFromListing(movieId: movie.id)
+    updateListOfMoviesByRemoving(movie)
+    listingView?.showToastAndUpdateDisplayedMovies(message: "Movie has been removed", movieList: moviesList)
+  }
+  
+  fileprivate func updateListOfMoviesByRemoving(_ movie: ListViewModel) {
+    moviesList = moviesList.filter() { $0 != movie }
+  }
+  
   fileprivate func showMoviesInView(movies:[Movie]) {
-    let moviesList = convertMoviesToMovieListViewModel(movies: movies)
+    moviesList = convertMoviesToMovieListViewModel(movies: movies)
     listingView?.showListOfMovie(movieList: moviesList)
   }
 
@@ -46,7 +57,8 @@ struct ListingPresenterImpl: ListingPresenter {
   fileprivate func convertMoviesToMovieListViewModel(movies:[Movie]) -> [ListViewModel] {
     var movieList = [ListViewModel]()
     for movie in movies {
-      let listViewModel:ListViewModel = ListViewModel(title: movie.title,
+      let listViewModel:ListViewModel = ListViewModel(id: movie.id,
+                                                      title: movie.title,
                                                       posterURL:getPosterURl(posterPath: movie.posterPath))
       movieList.append(listViewModel)
     }
