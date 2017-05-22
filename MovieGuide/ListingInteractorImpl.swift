@@ -9,9 +9,7 @@
 import Foundation
 
 import Moya
-import Mapper
 import Moya_ModelMapper
-import RxOptional
 import RxSwift
 
 enum MovieListOptions: String {
@@ -22,13 +20,17 @@ enum MovieListOptions: String {
 }
 
 struct ListingInteractorImpl: ListingInteractor {
-
-  var listingPresenter: ListingPresenter?
   
-  let provider: RxMoyaProvider<MovieGuideEndpoint>
+  var provider: RxMoyaProvider<MovieGuideEndpoint> {
+    get {
+      return dependencies.onlineProvider
+    }
+  }
   
-  init(provider: RxMoyaProvider<MovieGuideEndpoint> = OnlineProvider()) {
-    self.provider = provider
+  var dependencies: ListingInteractor.Dependencies
+  
+  init(dependencies: ListingInteractor.Dependencies) {
+    self.dependencies = dependencies
   }
   
   func getListOfMovies(listOption: MovieListOptions) -> Observable<ListingResponse>  {
@@ -36,5 +38,10 @@ struct ListingInteractorImpl: ListingInteractor {
     return provider
       .request(MovieGuideEndpoint.movieByOption(option: listOption.rawValue))
       .mapObject(type: ListingResponse.self)
+  }
+  
+  func removeMovieFromListing(movieId: Int) {
+    let localStorage: LocalStorage = LocalStorageImpl()
+    localStorage.addMovieToDislikeList(movieId: movieId)
   }
 }

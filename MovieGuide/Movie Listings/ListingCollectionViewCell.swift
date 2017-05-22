@@ -10,10 +10,16 @@ import Foundation
 import UIKit
 import AlamofireImage
 
+protocol ListingCollectionViewCellDelegate: class {
+  func listingCollectionViewCell(_ cell: ListingCollectionViewCell, didTapDislikeButton button: UIButton)
+}
+
 class ListingCollectionViewCell: UICollectionViewCell {
   
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var posterImageView: UIImageView!
+  @IBOutlet weak var dislikeButton: UIButton!
+  weak var delegate: ListingCollectionViewCellDelegate?
   
   func configure(movie: ListViewModel) {
     self.titleLabel.text = movie.title
@@ -24,5 +30,14 @@ class ListingCollectionViewCell: UICollectionViewCell {
   
   override func prepareForReuse() {
     self.posterImageView.af_cancelImageRequest()
+  }
+  
+  
+  @IBAction func dislikeButtonTapped(_ sender: UIButton) {
+    guard let delegate = delegate else {
+      return
+    }
+    
+    delegate.listingCollectionViewCell(self, didTapDislikeButton: sender)
   }
 }

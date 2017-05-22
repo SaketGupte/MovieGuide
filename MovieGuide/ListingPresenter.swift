@@ -14,5 +14,7 @@ protocol ListingPresenter {
   
   func getListOfMovie(option: MovieListOptions)
   
-  func getSortOptions() 
+  func getSortOptions()
+  
+  func dislikeTappedForMovie(_ movie: ListViewModel)
 }

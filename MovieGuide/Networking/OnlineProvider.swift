@@ -5,6 +5,7 @@
 //  Created by Saket Gupte on 19/04/17.
 //  Copyright © 2017 Saket Gupte. All rights reserved.
 //
+//  OnlineProvider is copy of OnlineProvider used in Eidolon
 
 import Foundation
 import Moya

@@ -50,10 +50,21 @@ class ListingViewController: UIViewController,
   }
   
   func showErrorMessage(_ message: String) {
+    print("Unable to fetch list of movies")
+  }
+  
+  func showToastAndUpdateDisplayedMovies(message: String, movieList: [ListViewModel]) {
+    print(message)
+    movies = movieList
+    collectionView.reloadData()
   }
   
   func getMoviesOnLoad() {
     listingPresenter?.getListOfMoviesByDefaultOption()
+  }
+  
+  func removeDislikedMovieFromDisplayList(movie: ListViewModel) {
+    listingPresenter?.dislikeTappedForMovie(movie)
   }
 }
 
@@ -70,6 +81,7 @@ extension ListingViewController: UICollectionViewDelegate, UICollectionViewDataS
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let listingCell:ListingCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
     listingCell.configure(movie: movies[indexPath.row])
+    listingCell.delegate = self
     return listingCell
   }
   
@@ -87,5 +99,15 @@ extension ListingViewController: CustomPickerDelegate {
   }
   
   func canceledSelection(picker: CustomPicker) {
+  }
+}
+
+extension ListingViewController: ListingCollectionViewCellDelegate {
+  func listingCollectionViewCell(_ cell: ListingCollectionViewCell, didTapDislikeButton button: UIButton) {
+    guard let rowTapped = collectionView.indexPath(for: cell)?.row else {
+      return
+    }
+    let dislikedMovie = movies[rowTapped]
+    removeDislikedMovieFromDisplayList(movie: dislikedMovie)
   }
 }

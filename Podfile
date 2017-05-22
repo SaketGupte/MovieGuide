@@ -38,5 +38,5 @@ pod 'Moya-ModelMapper/RxSwift', '~> 4.0.0-beta.3'
 pod 'RxOptional', '~> 3.1.2'
 pod 'SwiftLint'
 pod 'ReachabilitySwift'
-
+pod 'RealmSwift'
 end

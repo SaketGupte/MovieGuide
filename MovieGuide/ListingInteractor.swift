@@ -12,8 +12,11 @@ import Moya
 
 protocol ListingInteractor {
 
-  var provider: RxMoyaProvider<MovieGuideEndpoint>{get}
+  typealias Dependencies = HasOnlineProvider
+  
+  var dependencies: Dependencies{get}
   
   func getListOfMovies(listOption: MovieListOptions) -> Observable<ListingResponse>
   
+  func removeMovieFromListing(movieId: Int)
 }
