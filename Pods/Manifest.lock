@@ -36,6 +36,7 @@ PODS:
   - RxSwift (3.2.0)
   - RxTest (3.2.0):
     - RxSwift (~> 3.0)
+  - Sourcery (0.5.9)
   - SwiftLint (0.16.1)
   - Typhoon (4.0.2):
     - Typhoon/DeallocNotifier (= 4.0.2)
@@ -57,6 +58,7 @@ DEPENDENCIES:
   - RxCocoa (~> 3.0.0)
   - RxOptional (~> 3.1.2)
   - RxTest
+  - Sourcery
   - SwiftLint
   - Typhoon
 
@@ -81,9 +83,10 @@ SPEC CHECKSUMS:
   RxOptional: b97b59183af80d1e729ac9e51d09a10be668d6a8
   RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
   RxTest: 85fdd6f753e8e62635a58d37bbdd3ce7d5abbef3
+  Sourcery: 45e4b8ab587861e67de267957b16d91902f3a26f
   SwiftLint: b8b683208cc09640898f16318a7a452274e91f61
   Typhoon: 05db9d33d798b90c202bf3f754275c03efe93297
 
-PODFILE CHECKSUM: 8872f6959e6f7b97c1376ce9f818991ba88308d7
+PODFILE CHECKSUM: 5a58a22cb0061519e088fe1fb15bb59b4df4dbae
 
 COCOAPODS: 1.2.0

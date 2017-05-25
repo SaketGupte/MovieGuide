@@ -27,8 +27,8 @@ class ListingPresenterImpl: ListingPresenter {
   func getListOfMovie(option: MovieListOptions) {
     listingInteractor?
       .getListOfMovies(listOption: option)
-      .subscribe(onNext: { (movieResponse: ListingResponse) in
-        self.showMoviesInView(movies: movieResponse.movie)
+      .subscribe(onNext: { movies in
+        self.showMoviesInView(movies: movies)
       }, onError: { error in
         self.showErrorMessage(error)
       })

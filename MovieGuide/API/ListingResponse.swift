@@ -10,10 +10,10 @@ import Mapper
 
 struct ListingResponse: Mappable {
   
-  var movie: [Movie]
+  var movies: [Movie]
 
   init(map: Mapper) throws {
-    try movie = map.from("results")
+    try movies = map.from("results")
   }
   
 }

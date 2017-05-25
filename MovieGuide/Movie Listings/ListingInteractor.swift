@@ -12,11 +12,11 @@ import Moya
 
 protocol ListingInteractor {
 
-  typealias Dependencies = HasOnlineProvider
+  typealias Dependencies = HasNetworkProvider & HasStorageProvider
   
   var dependencies: Dependencies{get}
   
-  func getListOfMovies(listOption: MovieListOptions) -> Observable<ListingResponse>
+  func getListOfMovies(listOption: MovieListOptions) -> Observable<[Movie]>
   
   func removeMovieFromListing(movieId: Int)
 }
