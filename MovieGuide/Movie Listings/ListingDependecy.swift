@@ -9,15 +9,21 @@
 import Foundation
 
 
-protocol HasOnlineProvider {
-  var onlineProvider: OnlineProvider<MovieGuideEndpoint> {get}
+protocol HasNetworkProvider {
+  var networkProvider: OnlineProvider<MovieGuideEndpoint> {get}
 }
 
-struct ListingDependency: HasOnlineProvider {
-  let onlineProvider: OnlineProvider<MovieGuideEndpoint>
+protocol HasStorageProvider {
+  var storageProvider: LocalStorage {get}
+}
+
+struct ListingDependency: HasNetworkProvider, HasStorageProvider {
+  let networkProvider: OnlineProvider<MovieGuideEndpoint>
+  let storageProvider: LocalStorage
   
-  init(onlineProvider: OnlineProvider<MovieGuideEndpoint> = OnlineProvider()) {
-    self.onlineProvider = onlineProvider
+  init(networkProvider: OnlineProvider<MovieGuideEndpoint> = OnlineProvider(),
+       storageProvider: LocalStorage = LocalStorageImpl()) {
+    self.networkProvider = networkProvider
+    self.storageProvider = storageProvider
   }
-  
 }

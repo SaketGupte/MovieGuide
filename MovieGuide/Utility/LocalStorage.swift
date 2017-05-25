@@ -23,9 +23,13 @@ class LocalStorageImpl: LocalStorage {
   
   func addMovieToDislikeList(movieId: Int) {
     let dislikedMovies = DislikedMovies(value: [movieId])
-    try? realm?.write {() -> Void in
-      realm?.add(dislikedMovies)
+    
+    DispatchQueue.global(qos: .utility).async {
+      try? self.realm?.write {() -> Void in
+        self.realm?.add(dislikedMovies)
+      }
     }
+    
   }
   
   

@@ -39,4 +39,7 @@ pod 'RxOptional', '~> 3.1.2'
 pod 'SwiftLint'
 pod 'ReachabilitySwift'
 pod 'RealmSwift'
+pod 'Sourcery'
+#pod 'Stencil', '~> 0.8.0'
+
 end

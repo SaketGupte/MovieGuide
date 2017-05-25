@@ -17,3 +17,6 @@ class DislikedMovies: Object {
     return "movieId"
   }
 }
+
+
+extension DislikedMovies: AutoEquatable {}

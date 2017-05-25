@@ -35,19 +35,19 @@ class ListingInteractorTest: XCTestCase {
   func testIsListingResponseReturnedWhenGetMoviesCallIsSuccessful() {
     
     let expectation1 = expectation(description: "Call was successful")
-    let observer = scheduler.createObserver(ListingResponse.self)
+    let observer = scheduler.createObserver([Movie].self)
     
     let response = sut.getListOfMovies(listOption: .nowPlaying)
     
     response.subscribe(onNext: { _ in
       expectation1.fulfill()
     }).addDisposableTo(disposeBag)
-    
+
     response.subscribe(observer).addDisposableTo(disposeBag)
     
     scheduler.start()
     
-    waitForExpectations(timeout: 2.0) { error in
+    waitForExpectations(timeout: 5.0) { error in
       XCTAssertTrue(error == nil)
       XCTAssertEqual(observer.events.count, 2)
     }
