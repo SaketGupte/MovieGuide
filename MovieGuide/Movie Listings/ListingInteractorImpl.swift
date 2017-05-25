@@ -23,7 +23,7 @@ struct ListingInteractorImpl: ListingInteractor {
   
   var networkProvider: RxMoyaProvider<MovieGuideEndpoint> {
     get {
-      return dependencies.onlineProvider
+      return dependencies.networkProvider
     }
   }
   
@@ -45,29 +45,27 @@ struct ListingInteractorImpl: ListingInteractor {
       .request(MovieGuideEndpoint.movieByOption(option: listOption.rawValue))
       .mapObject(type: ListingResponse.self)
     
-    return getListOfNotDislikedMovies(response: listingResponse)
+    return filterOutDislikedMovies(response: listingResponse)
   }
   
-  func removeMovieFromListing(movieId: Int) {
-    let localStorage: LocalStorage = LocalStorageImpl()
-    localStorage.addMovieToDislikeList(movieId: movieId)
-  }
-  
-  fileprivate func getListOfNotDislikedMovies(response: Observable<ListingResponse>) -> Observable<[Movie]> {
+  fileprivate func filterOutDislikedMovies(response: Observable<ListingResponse>) -> Observable<[Movie]> {
     
-    let dislikedMovies = getAllDislikedMovies()
+    let dislikedMoviesId = getIdsOfAllDislikedMovies()
 
     return  response.map { (listingResponse)  in
       listingResponse.movies.flatMap({ (movie) in
-        dislikedMovies.map { $0.movieId }.contains(movie.id) ? nil : movie
+        dislikedMoviesId.contains(movie.id) ? nil : movie
       })
     }
   }
   
-  fileprivate func getAllDislikedMovies() -> [DislikedMovies] {
-    let localStorage: LocalStorage = LocalStorageImpl()
-    return localStorage.getAllDislikedMovies()
+  fileprivate func getIdsOfAllDislikedMovies() -> [Int] {
+    return localStorageProvider.getAllDislikedMovies().map{$0.movieId}
   }
 
-  
+  func removeMovieFromListing(movieId: Int) {
+    let localStorage: LocalStorage = LocalStorageImpl()
+    localStorage.addMovieToDislikeList(movieId: movieId)
+  }
+
 }

@@ -121,7 +121,8 @@ class ListingPresenterTest: XCTestCase {
     let provider:OnlineProvider<MovieGuideEndpoint> = OnlineProvider(endpointClosure: endpointClosure,
                                                                      stubClosure: MoyaProvider.immediatelyStub,
                                                                      online:Observable.just(true))
-    return ListingDependency(onlineProvider: provider)
+    
+    return ListingDependency(networkProvider: provider, storageProvider: LocalStorageSpy())
   }
   
   fileprivate func configureSutWithInteractorSpy(forEndpointClosure endpointClosure: @escaping MoyaProvider<MovieGuideEndpoint>.EndpointClosure) {
@@ -134,29 +135,37 @@ class ListingPresenterTest: XCTestCase {
 
   class ListingInteractorSpy: ListingInteractor {
     
-    var provider: OnlineProvider<MovieGuideEndpoint> {
+    var networkProvider: OnlineProvider<MovieGuideEndpoint> {
       get {
-        return dependencies.onlineProvider
+        return dependencies.networkProvider
+      }
+    }
+    
+    var storageProvider: LocalStorage {
+      get {
+        return dependencies.storageProvider
       }
     }
     
     var dependencies: ListingInteractor.Dependencies
     
     var getListOfMoviesCalled: Bool = false
+    var removeMoviesCalled: Bool = false
     
     init(dependencies: ListingInteractor.Dependencies) {
       self.dependencies = dependencies
     }
     
-    func getListOfMovies(listOption: MovieListOptions) -> Observable<ListingResponse> {
+    func getListOfMovies(listOption: MovieListOptions) -> Observable<[Movie]> {
       getListOfMoviesCalled = true
       
       let endpoint: Endpoint = dependencies
-        .onlineProvider
+        .networkProvider
         .endpoint(MovieGuideEndpoint.movieByOption(option: MovieListOptions.nowPlaying.rawValue))
       
       let result = getSampleResposeForEndpoint(endpoint)
-      return Observable<ListingResponse>.create { (observer) -> Disposable in
+      
+      let response = Observable<ListingResponse>.create { (observer) -> Disposable in
         switch result {
         case let .success(response):
           observer.onNext(try! response.mapObject() as ListingResponse)
@@ -165,9 +174,13 @@ class ListingPresenterTest: XCTestCase {
         }
         return Disposables.create()
       }
+      
+      return response.map { (listingResponse)  in
+        listingResponse.movies.flatMap {$0}
+      }
     }
     
-    func getSampleResposeForEndpoint(_ endpoint: Endpoint<MovieGuideEndpoint>) -> Result<Moya.Response, MoyaError> {
+    fileprivate func getSampleResposeForEndpoint(_ endpoint: Endpoint<MovieGuideEndpoint>) -> Result<Moya.Response, MoyaError> {
       switch endpoint.sampleResponseClosure() {
       case .networkResponse(let statusCode, let data):
         let response = Moya.Response(statusCode: statusCode, data: data)
@@ -180,6 +193,11 @@ class ListingPresenterTest: XCTestCase {
         return .success(response)
       }
     }
+    
+    func removeMovieFromListing(movieId: Int) {
+      removeMoviesCalled = true
+    }
+    
   }
   
   class ListingViewSpy: ListingView {
@@ -187,6 +205,7 @@ class ListingPresenterTest: XCTestCase {
     var showErrorMessageCalled = false
     var showListOfMovieCalled = false
     var showSortOptionsCalled = false
+    var showToastAndUpdateDisplayedMoviesCalled = false
     
     var listOfMovies = [Any]()
     
@@ -205,6 +224,28 @@ class ListingPresenterTest: XCTestCase {
       showSortOptionsCalled = true
       sortOptions = sortList
     }
+    
+    func showToastAndUpdateDisplayedMovies(message: String, movieList: [ListViewModel]) {
+      showToastAndUpdateDisplayedMoviesCalled = true
+    }
+  }
+  
+  class LocalStorageSpy: LocalStorage {
+    
+    var addMovieToDislikeListCalled = false
+    var getAllDislikeMovieCalled = false
+    
+    func addMovieToDislikeList(movieId: Int) {
+      addMovieToDislikeListCalled = true
+    }
+    
+    func getAllDislikedMovies() -> [DislikedMovies] {
+      getAllDislikeMovieCalled = true
+      
+      let dislikedMovies = [DislikedMovies(value: 1), DislikedMovies(value: 2), DislikedMovies(value: 3), DislikedMovies(value: 4)];
+      return dislikedMovies
+    }
+    
   }
   
 }

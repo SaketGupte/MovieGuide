@@ -70,7 +70,7 @@ class ListingViewControllerTests: XCTestCase
     let collectionViewSpy = CollectionViewSpy(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
     sut.collectionView = collectionViewSpy
     
-    let dummyMovie = ListViewModel(title: "Dummy Movie", posterURL: URL(string: "DummyURL"))
+    let dummyMovie = ListViewModel(id: 1, title: "Dummy Movie", posterURL: URL(string: "DummyURL"))
     
     sut.showListOfMovie(movieList: [dummyMovie])
     
@@ -92,7 +92,7 @@ class ListingViewControllerTests: XCTestCase
     
     XCTAssertNotNil(sut.view)
     
-    let dummyMovie = ListViewModel(title: "Dummy Movie", posterURL: URL(string: "DummyURL"))
+    let dummyMovie = ListViewModel(id: 1, title: "Dummy Movie", posterURL: URL(string: "DummyURL"))
     
     sut.showListOfMovie(movieList: [dummyMovie])
     
@@ -107,7 +107,7 @@ class ListingViewControllerTests: XCTestCase
     
     XCTAssertNotNil(sut.view)
 
-    let dummyMovie = ListViewModel(title: "Dummy Movie", posterURL: URL(string: "DummyURL"))
+    let dummyMovie = ListViewModel(id: 1, title: "Dummy Movie", posterURL: URL(string: "DummyURL"))
 
     sut.showListOfMovie(movieList: [dummyMovie])
 
@@ -123,6 +123,7 @@ class ListingViewControllerTests: XCTestCase
   final class ListingPresenterImplSpy: ListingPresenter {
     var getMoviesCalled: Bool = false
     var getSortOptionsCalled: Bool = false
+    var getDislikeMovieCalled: Bool = false
     
     func getListOfMoviesByDefaultOption() {
       getMoviesCalled = true
@@ -134,6 +135,10 @@ class ListingViewControllerTests: XCTestCase
     
     func getListOfMovie(option: MovieListOptions) {
       getMoviesCalled = true
+    }
+    
+    func dislikeTappedForMovie(_ movie: ListViewModel) {
+      getDislikeMovieCalled = true
     }
   }
   
