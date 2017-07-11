@@ -14,43 +14,45 @@ import Moya
 
 class ListingInteractorTest: XCTestCase {
   var sut: ListingInteractor!
-  let disposeBag = DisposeBag()
-  
-  let scheduler = TestScheduler(initialClock: 0)
-  
-  
+  var scheduler: TestScheduler!
+  var disposeBag: DisposeBag!
+
   override func setUp() {
     super.setUp()
-    
-    let listingDependency = ListingDependency()
+
+    disposeBag = DisposeBag()
+    scheduler = TestScheduler(initialClock: 0)
+    let listingDependency = StubbedResponse.success.getListingDependency(forTarget: MovieGuideEndpoint.movieByOption(option: MovieListOptions.nowPlaying.rawValue))
     sut = ListingInteractorImpl(dependencies: listingDependency)
-    // Put setup code here. This method is called before the invocation of each test method in the class.
   }
   
   override func tearDown() {
     sut = nil
+    scheduler = nil
+    disposeBag = nil
     super.tearDown()
   }
   
   func testIsListingResponseReturnedWhenGetMoviesCallIsSuccessful() {
     
-    let expectation1 = expectation(description: "Call was successful")
+    let testExpectation = expectation(description: "Call was successful")
     let observer = scheduler.createObserver([Movie].self)
     
-    let response = sut.getListOfMovies(listOption: .nowPlaying)
+    let response = sut.getListOfMovies(listOption: .nowPlaying).shareReplay(1)
     
-    response.subscribe(onNext: { _ in
-      expectation1.fulfill()
+    response.subscribe(onCompleted: {
+      testExpectation.fulfill()
     }).addDisposableTo(disposeBag)
 
-    response.subscribe(observer).addDisposableTo(disposeBag)
-    
+    response.subscribe(observer).addDisposableTo(self.disposeBag)
+
     scheduler.start()
     
-    waitForExpectations(timeout: 5.0) { error in
+    waitForExpectations(timeout: 1.0) { error in
       XCTAssertTrue(error == nil)
       XCTAssertEqual(observer.events.count, 2)
     }
+    
   }
   
   

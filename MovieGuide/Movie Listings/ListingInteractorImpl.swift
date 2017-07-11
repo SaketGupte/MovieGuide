@@ -21,7 +21,7 @@ enum MovieListOptions: String {
 
 struct ListingInteractorImpl: ListingInteractor {
   
-  var networkProvider: RxMoyaProvider<MovieGuideEndpoint> {
+  var networkProvider: OnlineProvider<MovieGuideEndpoint> {
     get {
       return dependencies.networkProvider
     }
@@ -38,6 +38,11 @@ struct ListingInteractorImpl: ListingInteractor {
   init(dependencies: ListingInteractor.Dependencies) {
     self.dependencies = dependencies
   }
+}
+
+private typealias APIMethods = ListingInteractorImpl
+
+extension APIMethods {
   
   func getListOfMovies(listOption: MovieListOptions) -> Observable<[Movie]>  {
     
@@ -48,6 +53,18 @@ struct ListingInteractorImpl: ListingInteractor {
     return filterOutDislikedMovies(response: listingResponse)
   }
   
+  func removeMovieFromListing(movieId: Int) {
+    let localStorage: LocalStorage = LocalStorageImpl()
+    localStorage.addMovieToDislikeList(movieId: movieId)
+  }
+
+}
+
+
+private typealias PrivateMethods = ListingInteractorImpl
+
+extension PrivateMethods {
+
   fileprivate func filterOutDislikedMovies(response: Observable<ListingResponse>) -> Observable<[Movie]> {
     
     let dislikedMoviesId = getIdsOfAllDislikedMovies()
@@ -63,9 +80,5 @@ struct ListingInteractorImpl: ListingInteractor {
     return localStorageProvider.getAllDislikedMovies().map{$0.movieId}
   }
 
-  func removeMovieFromListing(movieId: Int) {
-    let localStorage: LocalStorage = LocalStorageImpl()
-    localStorage.addMovieToDislikeList(movieId: movieId)
-  }
 
 }

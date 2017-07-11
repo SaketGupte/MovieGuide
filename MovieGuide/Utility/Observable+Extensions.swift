@@ -2,9 +2,7 @@
 //  Observable+Extensions.swift
 //  MovieGuide
 //
-//  Created by Saket Gupte on 20/04/17.
-//  Copyright © 2017 Saket Gupte. All rights reserved.
-//
+//  Copied from Eidolon on 20/04/17.
 
 import Foundation
 import RxSwift

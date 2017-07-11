@@ -20,18 +20,22 @@ class ListingPresenterTest: XCTestCase {
   override func setUp() {
     super.setUp()
     sut = ListingPresenterImpl()
-    // Put setup code here. This method is called before the invocation of each test method in the class.
   }
   
   override func tearDown() {
     sut = nil
     super.tearDown()
   }
-  
+}
+
+private typealias Tests = ListingPresenterTest
+
+extension Tests {
+
   func testIsGetListOfMoviesByDefaultOptionCalled() {
     
-    let listingDependency = getListingDependencies()
-    
+    let listingDependency = StubbedResponse.success.getListingDependency(forTarget: MovieGuideEndpoint.movieByOption(option: MovieListOptions.nowPlaying.rawValue))
+
     let interactorSpy = ListingInteractorSpy(dependencies: listingDependency)
     sut.listingInteractor = interactorSpy
     sut.getListOfMoviesByDefaultOption()
@@ -60,9 +64,8 @@ class ListingPresenterTest: XCTestCase {
     let viewControllerSpy = ListingViewSpy()
     sut.listingView = viewControllerSpy
     
-    let successEndpointClosure = getEndpointClosureWithSuccessResponse(target: MovieGuideEndpoint.movieByOption(option: MovieListOptions.nowPlaying.rawValue))
-    configureSutWithInteractorSpy(forEndpointClosure: successEndpointClosure)
-    
+    configureSutWithInteractorSpy(forResponseType: .success)
+
     //When
     sut.getListOfMoviesByDefaultOption()
     
@@ -75,8 +78,7 @@ class ListingPresenterTest: XCTestCase {
     let viewControllerSpy = ListingViewSpy()
     sut.listingView = viewControllerSpy
     
-    let successEndpointClosure = getEndpointClosureWithSuccessResponse(target: MovieGuideEndpoint.movieByOption(option: MovieListOptions.nowPlaying.rawValue))
-    configureSutWithInteractorSpy(forEndpointClosure: successEndpointClosure)
+    configureSutWithInteractorSpy(forResponseType: .success)
     
     //When
     sut.getListOfMoviesByDefaultOption()
@@ -90,8 +92,7 @@ class ListingPresenterTest: XCTestCase {
     let viewControllerSpy = ListingViewSpy()
     sut.listingView = viewControllerSpy
     
-    let failureEndpointClosure = getEndpointClosureWithFailureResponse(target: MovieGuideEndpoint.movieByOption(option: MovieListOptions.nowPlaying.rawValue))
-    configureSutWithInteractorSpy(forEndpointClosure: failureEndpointClosure)
+    configureSutWithInteractorSpy(forResponseType: .error)
     
     // When
     sut.getListOfMoviesByDefaultOption()
@@ -99,34 +100,15 @@ class ListingPresenterTest: XCTestCase {
     // Then
     XCTAssertTrue(viewControllerSpy.showErrorMessageCalled, "show error is not called")
   }
-  
+}
+
+private typealias InteractorSpy = ListingPresenterTest
+
+extension InteractorSpy {
   //Mark: Private convinence methods
   
-  fileprivate func getEndpointClosureWithSuccessResponse(target: MovieGuideEndpoint) -> MoyaProvider<MovieGuideEndpoint>.EndpointClosure {
-    return { (target: MovieGuideEndpoint) -> Endpoint<MovieGuideEndpoint> in
-      let url = target.baseURL.appendingPathComponent(target.path).absoluteString
-      return Endpoint(url: url, sampleResponseClosure: {.networkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters)
-    }
-  }
-  
-  fileprivate func getEndpointClosureWithFailureResponse(target: MovieGuideEndpoint) -> MoyaProvider<MovieGuideEndpoint>.EndpointClosure {
-    return { (target: MovieGuideEndpoint) -> Endpoint<MovieGuideEndpoint> in
-      let error: NSError = NSError(domain: "com.movieguide", code: 400, userInfo: nil)
-      let url = target.baseURL.appendingPathComponent(target.path).absoluteString
-      return Endpoint(url: url, sampleResponseClosure: {.networkError(error)}, method: target.method, parameters: target.parameters)
-    }
-  }
-  
-  fileprivate func getListingDependencies(endpointClosure: @escaping MoyaProvider<MovieGuideEndpoint>.EndpointClosure = MoyaProvider.defaultEndpointMapping) -> ListingDependency {
-    let provider:OnlineProvider<MovieGuideEndpoint> = OnlineProvider(endpointClosure: endpointClosure,
-                                                                     stubClosure: MoyaProvider.immediatelyStub,
-                                                                     online:Observable.just(true))
-    
-    return ListingDependency(networkProvider: provider, storageProvider: LocalStorageSpy())
-  }
-  
-  fileprivate func configureSutWithInteractorSpy(forEndpointClosure endpointClosure: @escaping MoyaProvider<MovieGuideEndpoint>.EndpointClosure) {
-    let listingDependency = getListingDependencies(endpointClosure: endpointClosure)
+  fileprivate func configureSutWithInteractorSpy(forResponseType responseType: StubbedResponse) {
+    let listingDependency = responseType.getListingDependency(forTarget: MovieGuideEndpoint.movieByOption(option: MovieListOptions.nowPlaying.rawValue))
     let interactorSpy = ListingInteractorSpy(dependencies: listingDependency)
     sut.listingInteractor = interactorSpy
   }
@@ -199,7 +181,12 @@ class ListingPresenterTest: XCTestCase {
     }
     
   }
-  
+}
+
+private typealias ListingViewSpy = ListingPresenterTest
+
+extension ListingViewSpy {
+
   class ListingViewSpy: ListingView {
     
     var showErrorMessageCalled = false
@@ -229,23 +216,5 @@ class ListingPresenterTest: XCTestCase {
       showToastAndUpdateDisplayedMoviesCalled = true
     }
   }
-  
-  class LocalStorageSpy: LocalStorage {
-    
-    var addMovieToDislikeListCalled = false
-    var getAllDislikeMovieCalled = false
-    
-    func addMovieToDislikeList(movieId: Int) {
-      addMovieToDislikeListCalled = true
-    }
-    
-    func getAllDislikedMovies() -> [DislikedMovies] {
-      getAllDislikeMovieCalled = true
-      
-      let dislikedMovies = [DislikedMovies(value: 1), DislikedMovies(value: 2), DislikedMovies(value: 3), DislikedMovies(value: 4)];
-      return dislikedMovies
-    }
-    
-  }
-  
+
 }

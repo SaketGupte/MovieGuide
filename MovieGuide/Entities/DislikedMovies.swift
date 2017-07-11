@@ -1,5 +1,5 @@
 //
-//  DislikedMovies.swift
+//  DislikedMovie.swift
 //  MovieGuide
 //
 //  Created by Saket Gupte on 01/05/17.
@@ -9,9 +9,14 @@
 import Foundation
 import RealmSwift
 
-class DislikedMovies: Object {
+class DislikedMovie: Object {
   
   dynamic var movieId: Int = 0
+
+  convenience init(movieId: Int) {
+    self.init()
+    self.movieId = movieId
+  }
 
   override class func primaryKey() -> String? {
     return "movieId"
@@ -19,4 +24,4 @@ class DislikedMovies: Object {
 }
 
 
-extension DislikedMovies: AutoEquatable {}
+extension DislikedMovie: AutoEquatable {}

@@ -2,9 +2,9 @@
 // DO NOT EDIT
 
 
-// MARK: DislikedMovies Equatable
-extension DislikedMovies: Equatable {
-static func ==(lhs: DislikedMovies, rhs: DislikedMovies) -> Bool {
+// MARK: DislikedMovie Equatable
+extension DislikedMovie: Equatable {
+static func ==(lhs: DislikedMovie, rhs: DislikedMovie) -> Bool {
 guard lhs.movieId == rhs.movieId else { return false }
 return true
 }
