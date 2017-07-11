@@ -26,7 +26,12 @@ class ListingViewControllerTests: XCTestCase
     let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
     sut = storyboard.instantiateViewController(withIdentifier: "ListingViewController") as! ListingViewController
   }
-  
+}
+
+private typealias Tests = ListingViewControllerTests
+
+extension Tests {
+
   func testIfGetDefaultListIsCalled() {
     let listingPresenterImplSpy = ListingPresenterImplSpy()
     sut.listingPresenter = listingPresenterImplSpy
@@ -67,7 +72,8 @@ class ListingViewControllerTests: XCTestCase
   }
   
   func testShouldDisplayFetchedMovies() {
-    let collectionViewSpy = CollectionViewSpy(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+    
+    let collectionViewSpy = CollectionViewSpy()
     sut.collectionView = collectionViewSpy
     
     let dummyMovie = ListViewModel(id: 1, title: "Dummy Movie", posterURL: URL(string: "DummyURL"))
@@ -119,36 +125,5 @@ class ListingViewControllerTests: XCTestCase
     
     XCTAssertEqual(collectionViewCell.titleLabel.text, "Dummy Movie", "A properly configured collection view cell should display the movie name")
   }
-  
-  final class ListingPresenterImplSpy: ListingPresenter {
-    var getMoviesCalled: Bool = false
-    var getSortOptionsCalled: Bool = false
-    var getDislikeMovieCalled: Bool = false
     
-    func getListOfMoviesByDefaultOption() {
-      getMoviesCalled = true
-    }
-    
-    func getSortOptions() {
-      getSortOptionsCalled = true
-    }
-    
-    func getListOfMovie(option: MovieListOptions) {
-      getMoviesCalled = true
-    }
-    
-    func dislikeTappedForMovie(_ movie: ListViewModel) {
-      getDislikeMovieCalled = true
-    }
-  }
-  
-  final class CollectionViewSpy: UICollectionView {
-    
-    var reloadDataCalled = false
-    
-    override func reloadData() {
-      reloadDataCalled = true
-    }
-  }
-  
 }

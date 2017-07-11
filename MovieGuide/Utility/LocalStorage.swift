@@ -14,7 +14,7 @@ protocol LocalStorage {
   
   func addMovieToDislikeList(movieId: Int)
   
-  func getAllDislikedMovies() -> [DislikedMovies]
+  func getAllDislikedMovies() -> [DislikedMovie]
 }
 
 class LocalStorageImpl: LocalStorage {
@@ -22,7 +22,7 @@ class LocalStorageImpl: LocalStorage {
   lazy var realm: Realm? = try? Realm()
   
   func addMovieToDislikeList(movieId: Int) {
-    let dislikedMovies = DislikedMovies(value: [movieId])
+    let dislikedMovies = DislikedMovie(value: [movieId])
     
     DispatchQueue.global(qos: .utility).async {
       try? self.realm?.write {() -> Void in
@@ -33,8 +33,8 @@ class LocalStorageImpl: LocalStorage {
   }
   
   
-  func getAllDislikedMovies() -> [DislikedMovies] {
-    let dislikedMoviesResults =  realm?.objects(DislikedMovies.self)
+  func getAllDislikedMovies() -> [DislikedMovie] {
+    let dislikedMoviesResults =  realm?.objects(DislikedMovie.self)
     
     guard let results = dislikedMoviesResults else {
       return []
