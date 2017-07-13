@@ -9,9 +9,8 @@
 import Foundation
 
 class ListingConfigurator {
-  static let sharedInstance = ListingConfigurator()
   
-  func configure(viewController: ListingViewController?)
+  class func configure(viewController: ListingViewController?)
   {
     guard let viewController = viewController else {
       return
