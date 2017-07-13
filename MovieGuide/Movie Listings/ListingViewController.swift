@@ -22,7 +22,7 @@ class ListingViewController: UIViewController,
   override func awakeFromNib()
   {
     super.awakeFromNib()
-    ListingConfigurator.sharedInstance.configure(viewController: self)
+    ListingConfigurator.configure(viewController: self)
   }
 
   override func viewDidLoad() {

@@ -4,8 +4,10 @@
 
 // MARK: DislikedMovie Equatable
 extension DislikedMovie: Equatable {
-static func ==(lhs: DislikedMovie, rhs: DislikedMovie) -> Bool {
-guard lhs.movieId == rhs.movieId else { return false }
-return true
-}
+  static func ==(lhs: DislikedMovie, rhs: DislikedMovie) -> Bool {
+      guard lhs.movieId == rhs.movieId else {
+        return false
+      }
+    return true
+  }
 }
