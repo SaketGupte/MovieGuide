@@ -12,17 +12,20 @@ class ListingViewController: UIViewController,
                              ListingView {
 
   @IBOutlet weak var collectionView: UICollectionView!
-  @IBOutlet weak var sortByButton: UIBarButtonItem!
   var sortPicker: CustomPicker!
   
   var movies:[ListViewModel] = []
   var sortOptions:[(description: String, value: MovieListOptions)] = []
   var listingPresenter: ListingPresenter?
-  
-  override func awakeFromNib()
-  {
-    super.awakeFromNib()
+
+  init() {
+    super.init(nibName: nil, bundle: nil)
     ListingConfigurator.configure(viewController: self)
+    configureNavigationBar()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) is not implemented for ListingViewController")
   }
 
   override func viewDidLoad() {
@@ -32,7 +35,7 @@ class ListingViewController: UIViewController,
     getMoviesOnLoad()
   }
   
-  @IBAction func sortOptionsButtonTapped(_ sender: AnyObject) {
+  @objc func sortOptionsButtonTapped() {
     listingPresenter?.getSortOptions()
   }
   
@@ -66,6 +69,12 @@ class ListingViewController: UIViewController,
   func removeDislikedMovieFromDisplayList(movie: ListViewModel) {
     listingPresenter?.dislikeTappedForMovie(movie)
   }
+
+  func configureNavigationBar() {
+    title = "Movies"
+    let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "sort"), style: .plain, target: self, action: #selector(sortOptionsButtonTapped))
+    self.navigationItem.rightBarButtonItem = leftBarButtonItem
+  }
 }
 
 
@@ -86,8 +95,8 @@ extension ListingViewController: UICollectionViewDelegate, UICollectionViewDataS
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let viewSize = collectionView.bounds.size
-    let spacing: CGFloat = 1
+    let viewSize = collectionView.frame.size
+    let spacing: CGFloat = 11
     let edgeLength = (viewSize.width / 2) - spacing
     return CGSize(width: edgeLength, height: edgeLength)
   }
