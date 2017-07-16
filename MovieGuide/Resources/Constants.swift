@@ -12,6 +12,6 @@ struct constants {
   
   struct apiConstants {
     static let imageBaseUrl = "https://image.tmdb.org/t/p/"
-    static let imageSize = "w500"
+    static let imageSize = "w300"
   }
 }

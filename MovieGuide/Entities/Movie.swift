@@ -23,7 +23,7 @@ struct Movie: Mappable {
     try id = map.from("id")
     try title = map.from("title")
     try overview = map.from("overview")
-    try posterPath = map.from("backdrop_path")
+    try posterPath = map.from("poster_path")
     try isAdultMovie = map.from("adult")
     try originalLanguage = map.from("original_language")
     try releaseDate = map.from("release_date")

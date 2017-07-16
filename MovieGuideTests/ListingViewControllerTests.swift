@@ -23,8 +23,7 @@ class ListingViewControllerTests: XCTestCase
   }
   
   func setupListingViewController() {
-    let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    sut = storyboard.instantiateViewController(withIdentifier: "ListingViewController") as! ListingViewController
+    sut = ListingViewController()
   }
 }
 
@@ -46,17 +45,11 @@ extension Tests {
     
     XCTAssert(sut.collectionView != nil, "Collection view should have been connected at this point")
   }
-  
-  func testIfSortByButtonIsConnected() {
-    XCTAssertNotNil(sut.view)
-    
-    XCTAssert(sut.sortByButton != nil, "Sort by button should have been connected")
-  }
-  
+
   func testSortButtonHasAction() {
     XCTAssertNotNil(sut.view)
 
-    XCTAssert(sut.sortByButton.action! == #selector(sut.sortOptionsButtonTapped(_:)),"sort button should have an action link to sortOptionsButtonTapped")
+    XCTAssert(sut.navigationItem.rightBarButtonItem?.action == #selector(sut.sortOptionsButtonTapped),"sort button should have an action link to sortOptionsButtonTapped")
   }
   
   func testGetSortOptionsInPresenterGetsCalledIfSortButtonIsTapped() {
@@ -66,7 +59,7 @@ extension Tests {
 
     XCTAssertNotNil(sut.view)
     
-    sut.perform(sut.sortByButton.action!, with: UIControlEvents.touchUpInside)
+    sut.perform(sut.navigationItem.rightBarButtonItem?.action, with: UIControlEvents.touchUpInside)
         
     XCTAssertTrue(listingPresenterImplSpy.getSortOptionsCalled)
   }

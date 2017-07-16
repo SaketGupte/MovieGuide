@@ -15,16 +15,12 @@ protocol NibLoadableView: class {
 
 extension NibLoadableView where Self: UIView {
   static var nibName: String {
-    return NSStringFromClass(self)
+    return String(describing:self)
   }
-}
-
-extension ListingTableViewCell: NibLoadableView {
 }
 
 extension ListingCollectionViewCell: NibLoadableView {
 }
-
 
 extension UICollectionView {
   
