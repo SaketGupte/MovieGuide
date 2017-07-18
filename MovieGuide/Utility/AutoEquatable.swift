@@ -8,5 +8,5 @@
 
 import Foundation
 
-
+// This is an empty protocol used in templates for Sourcery
 protocol AutoEquatable {}

@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+protocol DetailView {
+
+  func showMovieDetails(movie: [DetailViewModel])
+
+  func disableDislikeButton()
+}
