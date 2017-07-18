@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ListingViewControllerDelegate: class {
+  func showMovieDetails(forId id: Int)
+}
+
 class ListingViewController: UIViewController,
                              ListingView {
 
@@ -17,6 +21,8 @@ class ListingViewController: UIViewController,
   var movies:[ListViewModel] = []
   var sortOptions:[(description: String, value: MovieListOptions)] = []
   var listingPresenter: ListingPresenter?
+
+  weak var delegate: ListingViewControllerDelegate?
 
   init() {
     super.init(nibName: nil, bundle: nil)
@@ -93,7 +99,12 @@ extension ListingViewController: UICollectionViewDelegate, UICollectionViewDataS
     listingCell.delegate = self
     return listingCell
   }
-  
+
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let movie: ListViewModel = movies[indexPath.row]
+    delegate?.showMovieDetails(forId: movie.id)
+  }
+
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let viewSize = collectionView.frame.size
     let spacing: CGFloat = 11
