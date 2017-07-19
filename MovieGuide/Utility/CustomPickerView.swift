@@ -8,76 +8,88 @@
 
 import UIKit
 
-@objc protocol CustomPickerDelegate: class {
-  @objc optional func selectedValueInPicker(picker: CustomPicker, index: Int, value: String)
-  @objc optional func canceledSelection(picker: CustomPicker)
+protocol CustomPickerDelegate: class {
+  func selectedValueInPicker(picker: CustomPicker, index: Int, value: String)
+  func canceledSelection(picker: CustomPicker)
 }
 
 class CustomPicker: NSObject {
   
-  var title: String
+  let title: String
   var items: [String]
+  var pickerBackgroundColor: UIColor = UIColor.white
+  var barButtonColor: UIColor = UIColor.blue
+
   weak var delegate: CustomPickerDelegate?
   
-  lazy var overlayView: UIView = {
+  fileprivate lazy var overlayView: UIView = {
     let view = UIView()
     view.isUserInteractionEnabled = true
     view.backgroundColor = UIColor(white: 0, alpha: 0.25)
     return view
   }()
   
-  lazy var toolbar: UIToolbar = {
+  fileprivate lazy var toolbar: UIToolbar = {
     let toolbar = UIToolbar()
     toolbar.delegate = self
     toolbar.autoresizingMask = .flexibleWidth;
     return toolbar
   }()
   
-  lazy var pickerContainerView: UIView = {
+  fileprivate lazy var pickerContainerView: UIView = {
     let view = UIView()
-    view.backgroundColor = UIColor.white
+    view.backgroundColor = self.pickerBackgroundColor
     return view
   }()
   
-  lazy var picker: UIPickerView = {
+  fileprivate lazy var picker: UIPickerView = {
     let picker = UIPickerView()
     picker.delegate = self
     picker.dataSource = self
     return picker
   }()
   
-  lazy var backgroundTapGesture: UITapGestureRecognizer = {
+  fileprivate lazy var backgroundTapGesture: UITapGestureRecognizer = {
     let gestureRecongnizer = UITapGestureRecognizer(target: self, action: #selector(cancelButtonTapped))
     return gestureRecongnizer
   }()
   
-  lazy var cancelButton: UIBarButtonItem = {
-    let button = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                 target: self,
-                                 action: #selector(cancelButtonTapped))
-    return button
+  fileprivate lazy var cancelButton: UIBarButtonItem = {
+
+    let cancelButton = UIBarButtonItem(title: "Cancel",
+                                       style: .plain,
+                                       target: self,
+                                       action: #selector(cancelButtonTapped))
+
+    cancelButton.tintColor = self.barButtonColor
+    return cancelButton
   }()
   
-  @objc func cancelButtonTapped() {
-    self.delegate?.canceledSelection?(picker: self)
+  @objc fileprivate func cancelButtonTapped() {
+    self.delegate?.canceledSelection(picker: self)
+    self.dismissPickerView()
   }
   
   lazy var selectButton: UIBarButtonItem = {
-    let button = UIBarButtonItem(barButtonSystemItem: .done,
-                                 target: self,
-                                 action: #selector(selectButtonTapped))
-    return button
+
+    let selectButton = UIBarButtonItem(title: "Select",
+                                       style: .plain,
+                                       target: self,
+                                       action: #selector(selectButtonTapped))
+
+    selectButton.tintColor = self.barButtonColor
+    return selectButton
   }()
   
-  @objc func selectButtonTapped() {
+  @objc fileprivate func selectButtonTapped() {
     let selectedIndex = self.picker.selectedRow(inComponent: 0)
     let selectedValue = self.items[selectedIndex]
     
-    self.delegate?.selectedValueInPicker?(picker: self, index: selectedIndex, value: selectedValue)
+    self.delegate?.selectedValueInPicker(picker: self, index: selectedIndex, value: selectedValue)
     self.dismissPickerView()
   }
 
-  lazy var titleLabel: UILabel = {
+  fileprivate lazy var titleLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = self.title
     label.font = UIFont.boldSystemFont(ofSize: 14)
@@ -89,33 +101,47 @@ class CustomPicker: NSObject {
     self.title = title
     self.items = items
   }
-  
+
+  convenience init(title: String) {
+    self.init(title: title, items:[])
+  }
+
   func presentPickerOnView(view: UIView) ->  Void {
     let viewFrame: CGRect? = view.window?.frame
-    
+
     view.endEditing(true)
-    
+
     configureOverlayView(frame:viewFrame)
     view.window?.addSubview(overlayView)
-    
+
     let pickerContainerSourceFrame: CGRect = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: 260.0)
-    
+
     let pickerContainerDestinationFrame: CGRect = CGRect(x: 0, y: view.frame.height - 260.0, width: view.frame.width, height: 260.0)
 
     pickerContainerView.frame = pickerContainerSourceFrame
     view.window?.addSubview(pickerContainerView)
-    
+
     toolbar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44.0)
     configureToolbar()
     pickerContainerView.addSubview(toolbar)
-    
+
     picker.frame = CGRect(x: 0, y: 44.0, width: view.frame.width, height: 260.0)
     pickerContainerView.addSubview(picker)
-    
+
     showOverlay()
     showPickerView(destinationFrame: pickerContainerDestinationFrame)
   }
-  
+
+  func selectedItem(item: String?) {
+
+    guard let item = item else {
+      return
+    }
+
+    let selectedIndex = self.items.index(of: item) ?? 0
+    self.picker.selectRow(selectedIndex, inComponent: 0, animated: true)
+  }
+
   fileprivate func configureOverlayView(frame: CGRect?) {
     
     guard let frame = frame else {
@@ -206,8 +232,4 @@ extension CustomPicker: UIPickerViewDelegate, UIPickerViewDataSource {
     return items[row]
   }
   
-  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    delegate?.selectedValueInPicker?(picker: self, index: row, value: items[row])
-    self.dismissPickerView()
-  }
 }

@@ -16,11 +16,18 @@ class ListingViewController: UIViewController,
                              ListingView {
 
   @IBOutlet weak var collectionView: UICollectionView!
-  var sortPicker: CustomPicker!
-  
+
+  lazy var sortPicker: CustomPicker = {
+    let sortPicker = CustomPicker(title: "Sort Option")
+    sortPicker.pickerBackgroundColor = UIColor(colorLiteralRed: 228.0/255.0, green: 249.0/255.0, blue: 245.0/255.0, alpha: 1)
+    sortPicker.barButtonColor = UIColor(colorLiteralRed: 241.0/255.0, green: 196.0/255.0, blue: 16.0/255.0, alpha: 1)
+    return sortPicker
+  }()
+
   var movies:[ListViewModel] = []
   var sortOptions:[(description: String, value: MovieListOptions)] = []
   var listingPresenter: ListingPresenter?
+  var selectedSortingOption: String?
 
   weak var delegate: ListingViewControllerDelegate?
 
@@ -53,11 +60,12 @@ class ListingViewController: UIViewController,
   func showSortOptions(_ sortList: [(String, MovieListOptions)]) {
     
     sortOptions = sortList
-    sortPicker = CustomPicker(title: "Sort Option", items: sortOptions.map { $0.description })
+    sortPicker.items = sortOptions.map { $0.description }
+    sortPicker.selectedItem(item: self.selectedSortingOption)
     sortPicker.delegate = self
     sortPicker.presentPickerOnView(view: self.view)
   }
-  
+
   func showErrorMessage(_ message: String) {
     print("Unable to fetch list of movies")
   }
@@ -115,6 +123,7 @@ extension ListingViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 extension ListingViewController: CustomPickerDelegate {
   func selectedValueInPicker(picker: CustomPicker, index: Int, value: String) {
+    self.selectedSortingOption = sortOptions[index].description
     listingPresenter?.getListOfMovie(option: sortOptions[index].value)
   }
   
