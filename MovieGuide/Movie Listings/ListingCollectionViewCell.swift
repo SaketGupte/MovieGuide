@@ -18,7 +18,6 @@ class ListingCollectionViewCell: UICollectionViewCell {
   
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var posterImageView: UIImageView!
-  @IBOutlet weak var dislikeButton: UIButton!
   weak var delegate: ListingCollectionViewCellDelegate?
   
   func configure(movie: ListViewModel) {
@@ -30,14 +29,5 @@ class ListingCollectionViewCell: UICollectionViewCell {
   
   override func prepareForReuse() {
     self.posterImageView.af_cancelImageRequest()
-  }
-  
-  
-  @IBAction func dislikeButtonTapped(_ sender: UIButton) {
-    guard let delegate = delegate else {
-      return
-    }
-    
-    delegate.listingCollectionViewCell(self, didTapDislikeButton: sender)
   }
 }

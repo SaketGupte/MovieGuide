@@ -8,6 +8,14 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol DetailInteractor {
+  typealias Dependency = HasNetworkProvider & HasStorageProvider
+
+  var dependencies: Dependency {get}
+
+  func getDetailsForMovie(withId movieId: Int) -> Observable<Movie>
+
+  func removeMovieFromListing(movieId: Int)
 }

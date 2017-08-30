@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum MovieGuideEndpoint {
-  case movieDetails(movieId: String)
+  case movieDetails(movieId: Int)
   case similarMovies(movieId: String)
   case imagesForMovie(movieId: String)
   case movieByOption(option: String)

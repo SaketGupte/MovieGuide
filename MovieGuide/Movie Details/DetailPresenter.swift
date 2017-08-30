@@ -9,4 +9,11 @@
 import Foundation
 
 protocol DetailPresenter {
+
+  var interactor: DetailInteractor? {get set}
+  var view: DetailView? {get set}
+  
+  func fetchMovieDetail(forMovieWithId movieId:Int)
+
+  func dislikeMovie(movieId: Int)
 }

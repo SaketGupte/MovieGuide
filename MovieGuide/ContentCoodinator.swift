@@ -31,7 +31,7 @@ class ContentCoodinator: Coordinator {
 
 extension ContentCoodinator: ListingViewControllerDelegate {
   func showMovieDetails(forId id: Int) {
-    let detailViewController = DetailViewController()
+    let detailViewController = DetailViewController(movieId: id)
     self.navigationController.pushViewController(detailViewController, animated: true)
   }
 }

@@ -10,7 +10,7 @@ import Mapper
 
 struct Genre: Mappable {
 
-  let id: String
+  let id: Int
   let name: String
 
   init(map: Mapper) throws {

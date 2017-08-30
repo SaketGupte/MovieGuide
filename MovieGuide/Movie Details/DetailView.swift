@@ -10,7 +10,11 @@ import Foundation
 
 protocol DetailView {
 
-  func showMovieDetails(movie: [DetailViewModel])
+  var presenter: DetailPresenter? {get set}
+
+  func showMovieDetails(movie: DetailViewModel)
 
   func disableDislikeButton()
+
+  func showErrorView(withErrorMessage errorMessage: String)
 }

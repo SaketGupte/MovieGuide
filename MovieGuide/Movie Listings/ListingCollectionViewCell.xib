@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,31 +29,12 @@
                         <color key="textColor" red="0.94509803921568625" green="0.76862745098039209" blue="0.062745098039215685" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeX-er-9Ki">
-                        <rect key="frame" x="8" y="119.5" width="40" height="40"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="pOt-gb-Vyl"/>
-                            <constraint firstAttribute="width" constant="40" id="tz1-s6-ya3"/>
-                        </constraints>
-                        <state key="normal" image="dislikeIcon"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="20"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="dislikeButtonTapped:" destination="qtf-CX-4jb" eventType="touchUpInside" id="IE3-TX-0uV"/>
-                        </connections>
-                    </button>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="npO-kZ-eT5" secondAttribute="bottom" id="7sN-Ip-JaY"/>
-                <constraint firstItem="LeX-er-9Ki" firstAttribute="leading" secondItem="qtf-CX-4jb" secondAttribute="leading" constant="8" id="Iia-Gr-Wr1"/>
                 <constraint firstItem="6cr-jb-5iA" firstAttribute="leading" secondItem="qtf-CX-4jb" secondAttribute="leading" id="Imx-c9-9JF"/>
                 <constraint firstAttribute="bottom" secondItem="6cr-jb-5iA" secondAttribute="bottom" id="JIN-R2-8z3"/>
-                <constraint firstItem="6cr-jb-5iA" firstAttribute="top" secondItem="LeX-er-9Ki" secondAttribute="bottom" constant="8" id="KMf-7Y-D13"/>
                 <constraint firstAttribute="trailing" secondItem="6cr-jb-5iA" secondAttribute="trailing" id="eGE-AY-S56"/>
                 <constraint firstItem="npO-kZ-eT5" firstAttribute="top" secondItem="qtf-CX-4jb" secondAttribute="top" id="hwm-Z8-Quq"/>
                 <constraint firstItem="npO-kZ-eT5" firstAttribute="leading" secondItem="qtf-CX-4jb" secondAttribute="leading" id="iBM-9n-15k"/>
@@ -61,7 +42,6 @@
             </constraints>
             <size key="customSize" width="138" height="121"/>
             <connections>
-                <outlet property="dislikeButton" destination="LeX-er-9Ki" id="pVd-2l-hS9"/>
                 <outlet property="posterImageView" destination="npO-kZ-eT5" id="e0X-RZ-dwR"/>
                 <outlet property="titleLabel" destination="6cr-jb-5iA" id="9LL-Wc-FsC"/>
             </connections>
@@ -69,7 +49,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="dislikeIcon" width="40" height="40"/>
         <image name="moviePlaceholder" width="213" height="120"/>
     </resources>
 </document>

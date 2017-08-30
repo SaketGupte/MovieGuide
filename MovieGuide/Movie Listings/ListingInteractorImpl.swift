@@ -20,7 +20,9 @@ enum MovieListOptions: String {
 }
 
 struct ListingInteractorImpl: ListingInteractor {
-  
+
+  var dependencies: ListingInteractor.Dependencies
+
   var networkProvider: OnlineProvider<MovieGuideEndpoint> {
     get {
       return dependencies.networkProvider
@@ -32,9 +34,7 @@ struct ListingInteractorImpl: ListingInteractor {
       return dependencies.storageProvider
     }
   }
-  
-  var dependencies: ListingInteractor.Dependencies
-  
+
   init(dependencies: ListingInteractor.Dependencies) {
     self.dependencies = dependencies
   }

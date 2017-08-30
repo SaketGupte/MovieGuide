@@ -59,16 +59,10 @@ class ListingPresenterImpl: ListingPresenter {
     for movie in movies {
       let listViewModel:ListViewModel = ListViewModel(id: movie.id,
                                                       title: movie.title,
-                                                      posterURL:getPosterURl(posterPath: movie.posterPath))
+                                                      posterURL:movie.posterURL)
       movieList.append(listViewModel)
     }
     return movieList
-  }
-  
-  fileprivate func getPosterURl(posterPath:String?) -> URL? {
-    guard let posterPath = posterPath else { return nil }
-    let completePosterPath =  constants.apiConstants.imageBaseUrl + constants.apiConstants.imageSize + posterPath
-    return URL(string:completePosterPath)
   }
 
   func showErrorMessage() {

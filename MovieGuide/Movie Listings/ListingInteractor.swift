@@ -10,6 +10,14 @@ import Foundation
 import RxSwift
 import Moya
 
+protocol HasNetworkProvider {
+  var networkProvider: OnlineProvider<MovieGuideEndpoint> {get}
+}
+
+protocol HasStorageProvider {
+  var storageProvider: LocalStorage {get}
+}
+
 protocol ListingInteractor {
 
   typealias Dependencies = HasNetworkProvider & HasStorageProvider
